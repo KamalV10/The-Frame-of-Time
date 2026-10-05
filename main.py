@@ -10,9 +10,9 @@ running = True
 clock = pygame.time.Clock()
 x, y = v.START_WIDTH / 2, v.START_HEIGHT / 2
 speed = 5
-screen_width, screen_height = screen.get_size()
 
 while running:
+    screen_width, screen_height = screen.get_size()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -25,6 +25,12 @@ while running:
         y += speed
     if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
         x += speed
+    if keys[pygame.K_t]: # механика замедления времени
+        clock.tick(1)
+        speed = 25
+    else:
+        clock.tick(60)
+        speed = 5
 
     if x < 0: # границы
         x = 0
@@ -33,11 +39,11 @@ while running:
     if y < 0:
         y = 0
     if y + v.BOX_SIZE > screen_height:
-            y = screen_height - v.BOX_SIZE
+        y = screen_height - v.BOX_SIZE
 
-    clock.tick(30)
-    screen.fill((0, 0, 0))
-    pygame.draw.rect(screen, (255, 255, 255), (x, y, v.BOX_SIZE, v.BOX_SIZE))
+    clock.tick(60)
+    screen.fill((v.BLACK))
+    pygame.draw.rect(screen, (v.WHITE), (x, y, v.BOX_SIZE, v.BOX_SIZE))
     pygame.display.flip()
     
 pygame.quit()
