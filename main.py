@@ -1,6 +1,7 @@
 import pygame
 import sys
 import vars as v
+import classes as c
 
 pygame.init()
 screen = pygame.display.set_mode((v.START_WIDTH, v.START_HEIGHT), pygame.RESIZABLE)
@@ -10,6 +11,7 @@ running = True
 clock = pygame.time.Clock()
 x, y = v.START_WIDTH / 2, v.START_HEIGHT / 2
 speed = 5
+enemy = c.Enemy(100, 100, 50, 50, 100, v.RED)
 
 while running:
     screen_width, screen_height = screen.get_size()
@@ -27,7 +29,7 @@ while running:
         x += speed
     if keys[pygame.K_t]: # механика замедления времени
         clock.tick(1)
-        speed = 25
+        speed = 35
     else:
         clock.tick(60)
         speed = 5
@@ -44,6 +46,7 @@ while running:
     clock.tick(60)
     screen.fill((v.BLACK))
     pygame.draw.rect(screen, (v.WHITE), (x, y, v.BOX_SIZE, v.BOX_SIZE))
+    enemy.render(screen)
     pygame.display.flip()
     
 pygame.quit()
